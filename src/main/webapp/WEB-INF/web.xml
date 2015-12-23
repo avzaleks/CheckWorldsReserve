@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+        http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+    version="3.0">
+
+  <display-name>Archetype Created Web Application</display-name>
+ 
+  <filter>
+  	<filter-name>ChangeEncoding</filter-name>
+  	<filter-class>avz.bz.ua.controllers.ChangeEncoding</filter-class>
+  </filter>
+ 
+  <filter-mapping>
+  	<filter-name>ChangeEncoding</filter-name>
+  	<url-pattern>/*</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+  	<filter-name>ChangeEncoding</filter-name>
+  	<servlet-name>CheckWorldsReserve</servlet-name>
+  </filter-mapping>
+  <servlet>
+  	<servlet-name>CheckWorldsReserve</servlet-name>
+  	<servlet-class>avz.bz.ua.controllers.CheckWorldsReserve</servlet-class>
+  </servlet>
+
+  
+  <servlet-mapping>
+  	<servlet-name>CheckWorldsReserve</servlet-name>
+  	<url-pattern>/chwr</url-pattern>
+   </servlet-mapping>
+  
+</web-app>

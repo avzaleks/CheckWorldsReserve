@@ -1,0 +1,141 @@
+@CHARSET "UTF-8";
+
+html {
+	margin: auto;
+	padding: 0;
+}
+
+body {
+	margin: 10px;
+	font-family: Tahoma, Arial, Helvetica, sans-serif;
+    
+   }
+
+#owneself {
+	width: 47%;
+	height: 100%;
+	padding: 5px;
+	padding-right: 20px;
+	float: left;
+}
+
+#slideL {
+	padding-left: 20%;
+}
+
+#slideR {
+	padding-left: 10%;
+}
+
+#goog {
+	width: 47%;
+	padding: 5px;
+	padding-right: 20px;
+	float: right;
+	display: none
+}
+
+#fillarea {
+	
+}
+
+legend {
+	color: white;
+}
+
+#rules {
+	width: 85%;
+	height: 200px;
+	position: absolute;
+	left: 7%;
+	top: 67%;
+	color: #000066;
+	font-size: 30;
+	font-weight: 800;
+	margin-top: 10;
+	margin-bottom: 10
+}
+
+#rules fieldset {
+	border: red 3px solid;
+}
+
+#understand {
+	margin: 0 auto;
+	width: 200px;
+}
+
+#nonunderstand {
+	position: absolute;
+	display: none
+}
+
+#rules fieldset p, ul {
+	margin-top: 0;
+	margin-bottom: 0
+}
+
+#rules legend {
+	color: red;
+}
+
+ul {
+	font-size: 18;
+}
+
+#field {
+	color: white;
+	width: 250px;
+	height: 200px;
+	position: absolute;
+	left: 75%;
+	top: 10%;
+	display: none
+}
+
+#watch {
+	width: 50px;
+	position: absolute;
+	z-index: 100;
+	top: 50%;
+	left: 45%;
+    display: none
+}
+
+
+#par {
+	margin-top: 1;
+	margin-bottom: 1
+}
+
+#stopGame {
+	display: none;
+}
+#radio{
+	
+margin-bottom: 50
+	
+}
+
+#radio1 {
+	position: absolute;
+	left: 43%;
+}
+
+#radio2 {
+	position: absolute;
+	left: 75%;
+}
+
+
+#transFromGoogle{
+	font-size: 11px;
+}
+
+#fake{
+	
+	color:rgba(0, 128, 0, 0);
+}
+
+
+
