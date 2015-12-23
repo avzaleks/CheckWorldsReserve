@@ -11,7 +11,7 @@ import javax.websocket.server.ServerEndpoint;
 
 import avz.bz.ua.dao.Manager;
 
-@ServerEndpoint("/actions")
+@ServerEndpoint("/chwr")
 public class MyWss {
 
 	Manager manager = new Manager();
