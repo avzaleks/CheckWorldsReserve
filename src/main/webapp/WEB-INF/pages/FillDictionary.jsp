@@ -13,10 +13,9 @@
 	$(document)
 			.ready(
 					function() {
-						//console.log(window.location.pathname);
-						//console.log(window.location.href);
-						//var host = window.location.href.split("?")[0];
-						//console.log(host);
+						var host = window.location.href.split("?")[0];
+						var ws = host.replace("http", "ws")
+						console.log(ws);
 
 						$("#inputWorld").keypress(function(event) {
 							if (event.which != 13) {
@@ -40,7 +39,7 @@
 						}, 3000);
 
 						ws = new WebSocket(
-								'ws://localhost:8080/CheckWorldsReserve/actions');
+								ws);
 
 						ws.onmessage = function(message) {
 							if (message.data.indexOf("catch") != -1) {
