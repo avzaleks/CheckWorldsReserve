@@ -14,8 +14,8 @@
 			.ready(
 					function() {
 						var host = window.location.href.split("?")[0];
-						var ws = host.replace("http", "ws")
-						console.log(ws);
+						var wsLocation = host.replace("http", "ws")
+						console.log(wsLocation);
 
 						$("#inputWorld").keypress(function(event) {
 							if (event.which != 13) {
@@ -39,7 +39,7 @@
 						}, 3000);
 
 						ws = new WebSocket(
-								ws);
+								wsLocation);
 
 						ws.onmessage = function(message) {
 							if (message.data.indexOf("catch") != -1) {
