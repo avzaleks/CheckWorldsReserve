@@ -1,4 +1,4 @@
-package avz.bz.ua.dao;
+package avz.bz.ua.dao.file;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,24 +9,22 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.SortedMap;
 
-public class EnglRus extends Dict {
+public class RusEngl extends Dict {
 
-	private static EnglRus englRus = new EnglRus();
-	private String path = "D:\\engRusDict";
-	private MyTreeMap engRusDict;
+	private static RusEngl rusEngl = new RusEngl();
+	private String path = "D:\\rusEngDict11";
+	private MyTreeMap rusEngDict;
 
-	private EnglRus() {
+	private RusEngl() {
 		if (new File(path).exists()) {
 			readFromDisk(path);
 		} else {
-			engRusDict = new MyEnglTreeMap();
-			writeToDisk(engRusDict);
+			rusEngDict = new MyRusTreeMap();
+			writeToDisk(rusEngDict);
 		}
 	}
 
-	@Override
 	public void writeToDisk(Map<String, HashSet<String>> map) {
 		ObjectOutputStream objOutStr = null;
 		try {
@@ -46,7 +44,6 @@ public class EnglRus extends Dict {
 	public void readFromDisk(String path) {
 		ObjectInputStream objInpStr = null;
 		try {
-			System.out.println(path);
 			objInpStr = new ObjectInputStream(new FileInputStream(path));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -54,7 +51,7 @@ public class EnglRus extends Dict {
 			e.printStackTrace();
 		}
 		try {
-			engRusDict = (MyTreeMap) objInpStr
+			rusEngDict = (MyTreeMap) objInpStr
 					.readObject();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
@@ -63,14 +60,13 @@ public class EnglRus extends Dict {
 		}
 	}
 
-	public static EnglRus getEnglRus() {
-		return englRus;
+	public static RusEngl getRusEngl() {
+		return rusEngl;
 	}
 
 	@Override
 	public MyTreeMap getDict() {
-
-		return engRusDict;
+		return rusEngDict;
 	}
 
 }

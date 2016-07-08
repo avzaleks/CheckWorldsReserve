@@ -1,4 +1,4 @@
-package avz.bz.ua.dao;
+package avz.bz.ua.dao.file;
 
 import java.util.HashSet;
 import java.util.TreeMap;

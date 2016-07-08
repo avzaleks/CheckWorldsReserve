@@ -1,57 +1,59 @@
 package avz.bz.ua.wss;
 
-import java.io.IOException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.socket.CloseStatus;
+import org.springframework.web.socket.TextMessage;
+import org.springframework.web.socket.WebSocketSession;
+import org.springframework.web.socket.handler.TextWebSocketHandler;
 
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.ServerEndpoint;
+import avz.bz.ua.service.DictionaryService;
 
-import avz.bz.ua.dao.Manager;
 
-@ServerEndpoint("/chwr")
-public class MyWss {
+public class MyWss extends TextWebSocketHandler {
 
-	Manager manager = new Manager();
+	@Autowired
+	private DictionaryService dictionaryService;
 
-	@OnOpen
-	public void open(Session session) {
-		System.out.println("WebSocket have opened: " + session.getId());
+	
 
+	@Override
+	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
+		System.out.println("New connection " + session.getHandshakeHeaders());
 	}
 
-	@OnClose
-	public void close(Session session) {
-		manager.saveAll();
+	@Override
+	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+		System.out.println(status.getReason());
 	}
 
-	@OnError
-	public void onError(Throwable error) {
-		System.out.println(error.toString());
+	@Override
+	public void handleTransportError(WebSocketSession session, Throwable exception) throws Exception {
+		System.out.println(exception.getMessage());
 	}
 
-	@OnMessage
-	public void handleMessage(String message, Session session)
-			throws IOException {
-
+	@Override
+	protected void handleTextMessage(WebSocketSession session, TextMessage pMessage) throws Exception {
+		String message = pMessage.getPayload();
+		System.out.println(message);
 		if (message.contains("checkMe")) {
 			String[] array = message.split(":");
-			String contentString = manager.checkContent(array[1], array[2]);
+			String contentString = dictionaryService.checkContent(array[1], array[2]);
 			if (contentString != null) {
 				contentString = contentString.replaceAll(" ", "");
-				session.getBasicRemote().sendText("catch:" + contentString);
+				System.out.println(contentString + "3333333333333");
+				session.sendMessage(new TextMessage("catch:" + contentString));
 			}
 			return;
 		}
-		discoverMessage(message);
+		dictionaryService.discoverMessage(message);
 	}
 
-	private void discoverMessage(String message) {
-		message = message.replaceAll(" ", "");
-		String[] array = message.split(":");
-		manager.putValueInDict(array[0], array[1], array[2]);
+	public DictionaryService getProductService() {
+		return dictionaryService;
+	}
+
+	public void setProductService(DictionaryService dictionaryService) {
+		this.dictionaryService = dictionaryService;
 	}
 
 }

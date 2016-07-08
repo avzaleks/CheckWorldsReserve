@@ -1,4 +1,4 @@
-package avz.bz.ua.dao;
+package avz.bz.ua.dao.file;
 
 import java.util.HashSet;
 
@@ -8,9 +8,8 @@ public class MyEnglTreeMap extends MyTreeMap {
 
 	@Override
 	public void puttig(String key, HashSet<String> value) {
-		System.out.println("Put !!!!!!!!!!!!!!!!!!");
 		put(key, value);
-		new SaverSound(key).run();
+		// new SaverSound(key).run();
 	}
 
 }

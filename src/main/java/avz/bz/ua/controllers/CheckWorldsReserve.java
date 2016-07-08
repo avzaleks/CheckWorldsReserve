@@ -9,16 +9,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import avz.bz.ua.dao.Manager;
+import avz.bz.ua.dao.db.DbManager;
 
 public class CheckWorldsReserve extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private String nameOfJsp;
-	private Manager manager;
+	
+	private DbManager manager = new DbManager();
 
-	public CheckWorldsReserve() {
-		super();
-		manager = new Manager();
-	}
+//	public CheckWorldsReserve() {
+//		super();
+//		manager = new Manager();
+//	}
+
+	
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
@@ -36,5 +40,16 @@ public class CheckWorldsReserve extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 	}
+
+	
+//	public Manager getManager() {
+//		return manager;
+//	}
+//
+//	public void setManager(Manager manager) {
+//		this.manager = manager;
+//	}
+
+
 
 }

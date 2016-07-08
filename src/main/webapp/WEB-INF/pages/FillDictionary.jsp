@@ -7,13 +7,16 @@
 <link rel="stylesheet" type="text/css" href="css/style.css" />
 <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
 <script src="js/blockCapsLockAndKeyboardLayout.js"></script>
+<script src="sockjs/sockjs-0.3.js"></script>
 <title>FillDictionary</title>
 
 <script>
 	$(document)
 			.ready(
 					function() {
+						console.log(window.location.href);
 						var host = window.location.href.split("?")[0];
+						console.log(host);
 						var wsLocation = host.replace("http", "ws")
 						console.log(wsLocation);
 
@@ -38,14 +41,16 @@
 							}, 100);
 						}, 3000);
 
-						ws = new WebSocket(
-								wsLocation);
+						ws = new SockJS("http://" + document.domain
+								+ ":8080/CheckWorldsReserve/chwr");
 
 						ws.onmessage = function(message) {
+							console.log(message.data)
 							if (message.data.indexOf("catch") != -1) {
 								var existContent = message.data.split(":")[1];
+                                if (existContent.indexOf("[") != -1){
 								existContent = existContent.substring(1,
-										existContent.length - 1);
+										existContent.length - 1)};
 								resaltString = resaltString + existContent
 										+ ","
 
@@ -63,6 +68,9 @@
 						ws.onerror = function(error) {
 							alert("Ошибка " + error.message);
 						};
+
+						ws.onclose = function() {
+						}
 
 						$("#inputWorld").attr("lang", "eng");
 						$("#inputTruns").attr("lang", "rus");
@@ -136,11 +144,10 @@
 							var dirOfTr = "#" + array[0] + "/"
 									+ array[1].replace(":", "/");
 
-							$.get("http://localhost:8080/CheckWorldsReserve/",
-									{
-										google : word,
-										directOfTrans : dirOfTr
-									}, onAjaxSuccess);
+							$.get(host, {
+								google : word,
+								directOfTrans : dirOfTr
+							}, onAjaxSuccess);
 
 							function onAjaxSuccess(data) {
 
@@ -289,7 +296,6 @@
 <style>
 body {
 	background: url(images/BigBen.jpg) no-repeat;
-
 	background-size: cover;
 }
 </style>

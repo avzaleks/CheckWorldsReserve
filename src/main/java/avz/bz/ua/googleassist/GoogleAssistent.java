@@ -6,14 +6,10 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class GoogleAssistent {
 
 	private WebDriver driver = new FantomDriver().getDriver();;
-	private static String quot = "\"";
 	private static String classNameForPartsOfSpeach = "gt-cd-pos";
 	private static String classNameTable = "gt-baf-table";
 	private List<String> posDeviders = new ArrayList<String>();
@@ -35,27 +31,32 @@ public class GoogleAssistent {
 		for (WebElement divElement : div) {
 			String textInElem = divElement.getText();
 			for (String string : posDeviders) {
-				if (string.equals(textInElem)) {
-					dirtyString.append("%" + textInElem +": ");
-					textInElem = "";
-					break;
+				if (!"".equals(textInElem)) {
+
+					System.out.println(textInElem + "  ---");
+					System.out.println(string);
+					if (string.equals(textInElem)) {
+						dirtyString.append("%" + textInElem + ": ");
+						textInElem = "";
+						break;
+					}
 				}
 			}
 			if (divElement.getAttribute("title").contains("перевод")) {
-				dirtyString.append("&" + divElement.getAttribute("title")+":");
+				dirtyString.append("&" + divElement.getAttribute("title") + ":");
 				continue;
 			}
 			if (!textInElem.equals("")) {
-				dirtyString.append("$"+ textInElem );
+				dirtyString.append("$" + textInElem);
 			}
 		}
 		driver.quit();
+		posDeviders.clear();
 		return dirtyString.toString();
 	}
 
 	private void getPosDeviders(WebElement element) {
-		List<WebElement> pos = element.findElements(By
-				.className(classNameForPartsOfSpeach));
+		List<WebElement> pos = element.findElements(By.className(classNameForPartsOfSpeach));
 		for (WebElement posElement : pos) {
 			posDeviders.add(posElement.getText());
 		}
@@ -65,19 +66,15 @@ public class GoogleAssistent {
 	public String getTranslate(String directOfTrans, String word) {
 		getPosDeviders(getSource(directOfTrans, word));
 		return getDirtyString(getSource(directOfTrans, word));
-    	}
+	}
 
-
-	
-	
 	public void killDriver() {
 		driver.quit();
 	}
-	
-public void rerunDriver() {
-	System.out.println(System.currentTimeMillis()+"rrr");
-	driver  = new FantomDriver().getDriver();
-}
 
+	public void rerunDriver() {
+		System.out.println(System.currentTimeMillis() + "rrr");
+		driver = new FantomDriver().getDriver();
+	}
 
 }
